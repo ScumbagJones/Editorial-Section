@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Editorial color scheme - warm and authentic */
+  --background: hsl(35, 15%, 97%);        /* Cream #F8F6F3 */
+  --foreground: hsl(0, 0%, 17%);          /* Charcoal #2A2A2A */
+  --muted: hsl(35, 8%, 91%);              /* Light gray #E8E6E3 */
+  --muted-foreground: hsl(0, 0%, 35%);    /* Medium gray #5A5A5A */
+  --popover: hsl(35, 15%, 97%);
+  --popover-foreground: hsl(0, 0%, 17%);
+  --card: hsl(35, 15%, 97%);
+  --card-foreground: hsl(0, 0%, 17%);
+  --border: hsl(30, 6%, 83%);             /* Soft border #D4D1CE */
+  --input: hsl(35, 8%, 91%);
+  --primary: hsl(20, 100%, 40%);          /* Burnt orange #CC4A00 */
+  --primary-foreground: hsl(35, 15%, 97%);
+  --secondary: hsl(35, 8%, 91%);
+  --secondary-foreground: hsl(0, 0%, 17%);
+  --accent: hsl(20, 100%, 40%);
+  --accent-foreground: hsl(35, 15%, 97%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(35, 15%, 97%);
+  --ring: hsl(20, 100%, 40%);
+  --radius: 0.5rem;
+  
+  /* Magazine specific colors - updated for editorial theme */
+  --navy: hsl(35, 15%, 97%);              /* Cream background */
+  --charcoal: hsl(0, 0%, 17%);            /* Text color */
+  --slate: hsl(35, 8%, 91%);              /* Light sections */
+  --light-grey: hsl(30, 6%, 83%);         /* Borders/subtle elements */
+  --editorial: hsl(20, 100%, 40%);        /* Burnt orange accent */
+  
+  /* Additional editorial colors */
+  --warm-white: hsl(45, 20%, 99%);        /* #FEFCF7 */
+  --deep-brown: hsl(25, 29%, 22%);        /* #3C2A1E */
+}
+
+.dark {
+  /* Dark mode keeps the editorial theme but inverted */
+  --background: hsl(25, 29%, 22%);         /* Deep brown #3C2A1E */
+  --foreground: hsl(35, 15%, 97%);         /* Cream text */
+  --muted: hsl(25, 20%, 18%);
+  --muted-foreground: hsl(35, 8%, 70%);
+  --popover: hsl(25, 29%, 22%);
+  --popover-foreground: hsl(35, 15%, 97%);
+  --card: hsl(25, 25%, 20%);
+  --card-foreground: hsl(35, 15%, 97%);
+  --border: hsl(25, 15%, 25%);
+  --input: hsl(25, 20%, 18%);
+  --primary: hsl(20, 100%, 50%);           /* Brighter orange for dark mode */
+  --primary-foreground: hsl(25, 29%, 22%);
+  --secondary: hsl(25, 20%, 18%);
+  --secondary-foreground: hsl(35, 15%, 97%);
+  --accent: hsl(20, 100%, 50%);
+  --accent-foreground: hsl(25, 29%, 22%);
+  --destructive: hsl(0, 62.8%, 50%);
+  --destructive-foreground: hsl(35, 15%, 97%);
+  --ring: hsl(20, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-[var(--background)] text-foreground font-sans antialiased min-h-screen;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  /* Mobile responsive utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .bg-gradient-navy {
+    background: linear-gradient(135deg, var(--navy), var(--charcoal));
+  }
+
+  .bg-gradient-charcoal {
+    background: linear-gradient(135deg, var(--charcoal), var(--slate));
+  }
+
+  .bg-gradient-slate {
+    background: linear-gradient(135deg, var(--slate), var(--charcoal));
+  }
+
+  .text-editorial {
+    color: var(--editorial);
+  }
+
+  .bg-editorial {
+    background-color: var(--editorial);
+  }
+
+  .border-editorial {
+    border-color: var(--editorial);
+  }
+
+  .hover\:bg-editorial:hover {
+    background-color: var(--editorial);
+  }
+
+  .category-art {
+    @apply bg-purple-500/20 text-purple-400;
+  }
+
+  .category-fashion {
+    @apply bg-pink-500/20 text-pink-400;
+  }
+
+  .category-photography {
+    @apply bg-blue-500/20 text-blue-400;
+  }
+
+  .category-mixed {
+    @apply bg-green-500/20 text-green-400;
+  }
+
+  .status-pending {
+    @apply bg-yellow-500/20 text-yellow-400;
+  }
+
+  .status-approved {
+    @apply bg-green-500/20 text-green-400;
+  }
+
+  .status-rejected {
+    @apply bg-red-500/20 text-red-400;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--editorial);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Live indicator pulse */
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.5; 
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
