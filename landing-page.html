@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enamorado - Independent Culture Magazine | Community Archive & Stories</title>
+    <meta name="description" content="Enamorado is an independent culture magazine featuring community submissions, art, fashion, photography, and creative voices. Submit your work to our quarterly archive.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Enamorado - Independent Culture Magazine">
+    <meta property="og:description" content="Community-driven culture magazine showcasing art, fashion, photography, and creative voices">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enamorado.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: hsl(222, 84%, 5%);
+            --charcoal: hsl(215, 25%, 13%);
+            --slate: hsl(215, 16%, 20%);
+            --light-grey: hsl(215, 15%, 30%);
+            --editorial: hsl(207, 90%, 54%);
+            --foreground: hsl(210, 20%, 85%);
+            --muted-foreground: hsl(215, 20%, 75%);
+            --border: hsl(215, 32%, 27%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--navy), var(--charcoal), var(--slate));
+            color: var(--foreground);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            text-decoration: none;
+        }
+
+        .nav-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: -0.25rem;
+        }
+
+        .nav-logo p {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--editorial);
+        }
+
+        .nav-submit-btn {
+            background: var(--editorial);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-submit-btn:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+
+        .nav-live {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-live { display: none; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem 5rem 2rem;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--navy), var(--charcoal), var(--slate));
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            space-y: 2rem;
+        }
+
+        .hero-issue {
+            color: var(--editorial);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--muted-foreground);
+            font-weight: 300;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--editorial);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--muted-foreground);
+            border: 2px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .hero-preview {
+            background: linear-gradient(135deg, var(--light-grey), var(--slate));
+            height: 500px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .hero-preview:hover {
+            transform: scale(1.05);
+        }
+
+        .preview-content {
+            text-align: center;
+        }
+
+        .preview-icon {
+            font-size: 5rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-title { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .hero-buttons { justify-content: center; }
+        }
+
+        /* Featured Stories */
+        .featured {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted-foreground);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: linear-gradient(135deg, var(--light-grey), var(--slate));
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            transform: scale(1.05);
+        }
+
+        .story-image {
+            background: linear-gradient(135deg, var(--border), var(--slate));
+            height: 200px;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-category {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--editorial);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .story-excerpt {
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        .featured-large .story-image {
+            height: 300px;
+        }
+
+        .featured-large .story-title {
+            font-size: 2rem;
+        }
+
+        .stories-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Community Section */
+        .community {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--slate), var(--charcoal));
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .community-card {
+            background: linear-gradient(135deg, var(--light-grey), var(--slate));
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .community-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .community-placeholder {
+            background: linear-gradient(135deg, rgba(var(--light-grey), 0.3), rgba(var(--slate), 0.3));
+            border: 2px dashed var(--border);
+            opacity: 0.6;
+        }
+
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--border), var(--slate));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-category {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-author {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Archive Section */
+        .archive {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--charcoal), var(--navy));
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .archive-card {
+            background: linear-gradient(135deg, var(--light-grey), var(--slate));
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .archive-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .archive-image {
+            background: linear-gradient(135deg, var(--border), var(--slate));
+            height: 200px;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .archive-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .archive-subtitle {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .archive-status {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--editorial);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--navy);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-about h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--editorial);
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--editorial);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--muted-foreground);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Utility classes */
+        .icon {
+            width: 1.5em;
+            height: 1.5em;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <h1>Enamorado</h1>
+                <p>Independent Culture</p>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#featured">Features</a></li>
+                <li><a href="#culture">Culture</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#archive">Archive</a></li>
+            </ul>
+            
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="nav-live">
+                    <div class="live-dot"></div>
+                    <span>Live Radio</span>
+                </div>
+                <a href="/submit" class="nav-submit-btn">Submit</a>
+                <button class="mobile-menu-btn">MENU</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="featured" class="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <p class="hero-issue">Issue #14 - Q-zine</p>
+                <h1 class="hero-title">Imagining Tomorrow</h1>
+                <p class="hero-subtitle">
+                    10th Anniversary Edition featuring community culture, independent voices, 
+                    and the art that defines our generation.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://issuu.com/your-magazine" class="btn btn-primary" target="_blank">
+                        Read Full Issue
+                    </a>
+                    <a href="#archive" class="btn btn-outline">
+                        Browse Archive
+                    </a>
+                </div>
+            </div>
+            <div class="hero-preview" onclick="window.open('https://issuu.com/your-magazine', '_blank')">
+                <div class="preview-content">
+                    <div class="preview-icon">◇</div>
+                    <p style="color: white; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Issue #14 Preview</p>
+                    <p style="color: var(--muted-foreground);">Click to read on Issuu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Stories -->
+    <section id="culture" class="featured">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Stories</h2>
+                <p class="section-subtitle">
+                    Curated editorial content showcasing the voices and creativity of our community
+                </p>
+            </div>
+            
+            <div class="stories-grid">
+                <div class="story-card featured-large">
+                    <div class="story-image">
+                        <span style="font-size: 4rem; color: var(--muted-foreground);">🎨</span>
+                    </div>
+                    <span class="story-category">Culture</span>
+                    <h3 class="story-title">Imagining Tomorrow</h3>
+                    <p class="story-excerpt">
+                        10th Anniversary Edition featuring community culture, independent voices, and the art that defines our generation.
+                    </p>
+                </div>
+                
+                <div class="stories-sidebar">
+                    <div class="story-card">
+                        <div class="story-image">
+                            <span style="font-size: 2rem; color: var(--muted-foreground);">♪</span>
+                        </div>
+                        <span class="story-category">Music</span>
+                        <h3 class="story-title">Sound Stories</h3>
+                        <p class="story-excerpt">
+                            Discovering local music scenes and the artists shaping our cultural landscape.
+                        </p>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-image">
+                            <span style="font-size: 2rem; color: var(--muted-foreground);">◊</span>
+                        </div>
+                        <span class="story-category">Art</span>
+                        <h3 class="story-title">Creative Voices</h3>
+                        <p class="story-excerpt">
+                            Exploring the intersection of art, culture, and community through emerging artists.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Archive -->
+    <section id="community" class="community">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Community Archive</h2>
+                <p class="section-subtitle">
+                    Fresh submissions from our creative community - art, fashion, photography, and collaborative projects
+                </p>
+            </div>
+            
+            <div class="community-grid">
+                <!-- Placeholder cards to show potential -->
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◆</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Upcoming Submission</h3>
+                        <p class="card-author">@community_artist</p>
+                        <p class="card-description">Your work could be featured here...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◇</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Fashion Submission</h3>
+                        <p class="card-author">@style_creator</p>
+                        <p class="card-description">Style and fashion awaiting review...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◎</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Photography Work</h3>
+                        <p class="card-author">@photographer</p>
+                        <p class="card-description">Visual stories from our community...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◐</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Mixed Media</h3>
+                        <p class="card-author">@creative_mind</p>
+                        <p class="card-description">Experimental artistic expressions...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◈</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Creative Project</h3>
+                        <p class="card-author">@artist_collective</p>
+                        <p class="card-description">Collaborative works in progress...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◌</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Performance Art</h3>
+                        <p class="card-author">@performer</p>
+                        <p class="card-description">Live art and performance pieces...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◉</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Digital Art</h3>
+                        <p class="card-author">@digital_creator</p>
+                        <p class="card-description">Modern digital artistic expressions...</p>
+                    </div>
+                </div>
+                
+                <div class="community-card community-placeholder">
+                    <div class="card-image">
+                        <span style="font-size: 2rem; color: var(--muted-foreground);">◍</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Incoming</span>
+                        <h3 class="card-title">Your Submission</h3>
+                        <p class="card-author">@your_handle</p>
+                        <p class="card-description">Be part of our creative community...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <div style="background: linear-gradient(to right, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 1rem; padding: 2rem;">
+                    <h3 style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Join Our Community</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Share your work and become part of our growing creative archive. Every quarter, 
+                        we curate the best submissions for our community zine.
+                    </p>
+                    <a href="/submit" class="btn btn-primary">Submit Your Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section id="archive" class="archive">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Archive</h2>
+                <p class="section-subtitle">
+                    Explore our collection of past issues and community showcases
+                </p>
+            </div>
+            
+            <div class="archive-grid">
+                <div class="archive-card" onclick="window.open('https://issuu.com/your-magazine', '_blank')">
+                    <div class="archive-image">
+                        <span style="font-size: 3rem; color: var(--muted-foreground);">◇</span>
+                    </div>
+                    <h3 class="archive-title">Imagining Tomorrow</h3>
+                    <p class="archive-subtitle">Q-zine 10th Anniversary Edition</p>
+                    <span class="archive-status">Current Issue</span>
+                </div>
+                
+                <div class="archive-card" onclick="window.open('https://issuu.com/your-magazine', '_blank')">
+                    <div class="archive-image">
+                        <span style="font-size: 3rem; color: var(--muted-foreground);">◆</span>
+                    </div>
+                    <h3 class="archive-title">Community Voices</h3>
+                    <p class="archive-subtitle">Summer 2024 Edition</p>
+                    <span class="archive-status" style="background: rgba(156, 163, 175, 0.2); color: var(--muted-foreground);">Archive</span>
+                </div>
+                
+                <div class="archive-card" onclick="window.open('https://issuu.com/your-magazine', '_blank')">
+                    <div class="archive-image">
+                        <span style="font-size: 3rem; color: var(--muted-foreground);">◎</span>
+                    </div>
+                    <h3 class="archive-title">Creative Collective</h3>
+                    <p class="archive-subtitle">Spring 2024 Edition</p>
+                    <span class="archive-status" style="background: rgba(156, 163, 175, 0.2); color: var(--muted-foreground);">Archive</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Enamorado</h3>
+                <p>
+                    Independent culture and creative archive showcasing community voices, art, 
+                    and the stories that define our generation.
+                </p>
+                <div class="footer-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">TikTok</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#featured">Featured Stories</a></li>
+                    <li><a href="#community">Community Archive</a></li>
+                    <li><a href="#archive">Past Issues</a></li>
+                    <li><a href="/submit">Submit Work</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Live Radio</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Enamorado. Independent publishing platform.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>

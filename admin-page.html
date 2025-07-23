@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editorial Review Panel - Enamorado Admin | Content Management Dashboard</title>
+    <meta name="description" content="Editorial dashboard for Enamorado magazine. Review submissions, manage community content, and curate the quarterly archive.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: hsl(222, 84%, 5%);
+            --charcoal: hsl(215, 25%, 13%);
+            --slate: hsl(215, 16%, 20%);
+            --light-grey: hsl(215, 15%, 30%);
+            --editorial: hsl(207, 90%, 54%);
+            --foreground: hsl(210, 20%, 85%);
+            --muted-foreground: hsl(215, 20%, 75%);
+            --border: hsl(215, 32%, 27%);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--navy), var(--charcoal), var(--slate));
+            color: var(--foreground);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            text-decoration: none;
+        }
+
+        .nav-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: -0.25rem;
+        }
+
+        .nav-logo p {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            background: var(--charcoal);
+            padding: 5rem 2rem 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--navy), var(--slate));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-pending { color: var(--warning); }
+        .stat-approved { color: var(--success); }
+        .stat-likes { color: var(--editorial); }
+        .stat-contributors { color: #a855f7; }
+
+        .stat-icon {
+            font-size: 1.25rem;
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Reviewer Input */
+        .reviewer-section {
+            background: linear-gradient(135deg, var(--navy), var(--slate));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .reviewer-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviewer-input label {
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .reviewer-input input {
+            background: var(--charcoal);
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: white;
+            max-width: 300px;
+            transition: border-color 0.3s ease;
+        }
+
+        .reviewer-input input:focus {
+            outline: none;
+            border-color: var(--editorial);
+        }
+
+        /* Filters */
+        .filters-section {
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .filters-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .filter-tabs {
+            display: flex;
+            background: var(--navy);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            gap: 0.25rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted-foreground);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--editorial);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--editorial);
+        }
+
+        /* Submissions Grid */
+        .submissions-section {
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .submissions-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .submissions-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .submissions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .submission-card {
+            background: linear-gradient(135deg, var(--light-grey), var(--slate));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .submission-card:hover {
+            border-color: var(--editorial);
+            transform: translateY(-1px);
+        }
+
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .submission-info {
+            flex: 1;
+        }
+
+        .submission-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .submission-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .submission-author {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        .submission-date {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-category {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+
+        .badge-status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-status-approved {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .badge-status-rejected {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .submission-description {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .submission-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-approve {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-approve:hover:not(:disabled) {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-reject {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-reject:hover:not(:disabled) {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .approval-notice {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: var(--success);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted-foreground);
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--editorial);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted-foreground);
+        }
+
+        .empty-state h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Success Message */
+        .success-toast {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .success-toast.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .reviewer-input {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .reviewer-input input {
+                max-width: none;
+                width: 100%;
+            }
+            
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .submission-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .submission-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <h1>Enamorado</h1>
+                <p>Editorial Dashboard</p>
+            </a>
+            
+            <a href="/" class="back-btn">
+                <span>←</span>
+                <span>Back to Magazine</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header with Stats -->
+    <header class="header">
+        <div class="header-container">
+            <h1>Editorial Review Panel</h1>
+            <p>Manage submissions and curate content for the community archive</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Pending Review</div>
+                            <div class="stat-number stat-pending" id="pendingCount">5</div>
+                        </div>
+                        <div class="stat-icon">•</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Approved</div>
+                            <div class="stat-number stat-approved" id="approvedCount">12</div>
+                        </div>
+                        <div class="stat-icon">•</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Likes</div>
+                            <div class="stat-number stat-likes" id="likesCount">47</div>
+                        </div>
+                        <div class="stat-icon">•</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Contributors</div>
+                            <div class="stat-number stat-contributors" id="contributorsCount">8</div>
+                        </div>
+                        <div class="stat-icon">•</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Reviewer Input -->
+            <div class="reviewer-section">
+                <div class="reviewer-input">
+                    <label for="reviewerName">Reviewer Name:</label>
+                    <input type="text" id="reviewerName" value="Editorial Team" placeholder="Your name">
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filters-header">
+                    <h3 class="filters-title">Submission Review</h3>
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" onclick="filterSubmissions('all')">All</button>
+                        <button class="filter-btn" onclick="filterSubmissions('pending')">Pending</button>
+                        <button class="filter-btn" onclick="filterSubmissions('approved')">Approved</button>
+                        <button class="filter-btn" onclick="filterSubmissions('rejected')">Rejected</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submissions List -->
+            <div class="submissions-section">
+                <div class="submissions-header">
+                    <h3 class="submissions-title">Recent Submissions</h3>
+                </div>
+                
+                <div id="submissionsContainer" class="submissions-grid">
+                    <!-- Sample submissions for demo -->
+                    <div class="submission-card" data-status="pending">
+                        <div class="submission-header">
+                            <div class="submission-info">
+                                <h4 class="submission-title">Urban Sketches Series</h4>
+                                <div class="submission-meta">
+                                    <span class="submission-author">@streetartist92</span>
+                                    <span class="submission-date">• 2 hours ago</span>
+                                    <span class="badge badge-category">art</span>
+                                    <span class="badge badge-status-pending">pending</span>
+                                </div>
+                                <p class="submission-description">
+                                    A collection of quick urban sketches capturing the energy of city life. 
+                                    These were drawn during my daily commute over the past month, focusing on 
+                                    the intersection of architecture and human movement.
+                                </p>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="btn btn-approve" onclick="approveSubmission(1, this)">
+                                    <span>✓</span>
+                                    <span>Approve</span>
+                                </button>
+                                <button class="btn btn-reject" onclick="rejectSubmission(1, this)">
+                                    <span>✗</span>
+                                    <span>Reject</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-card" data-status="pending">
+                        <div class="submission-header">
+                            <div class="submission-info">
+                                <h4 class="submission-title">Vintage Thrift Finds</h4>
+                                <div class="submission-meta">
+                                    <span class="submission-author">@thriftstyle</span>
+                                    <span class="submission-date">• 5 hours ago</span>
+                                    <span class="badge badge-category">fashion</span>
+                                    <span class="badge badge-status-pending">pending</span>
+                                </div>
+                                <p class="submission-description">
+                                    Styling vintage pieces found at local thrift stores. These outfits showcase 
+                                    how sustainable fashion can be both affordable and unique, mixing decades 
+                                    to create something completely new.
+                                </p>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="btn btn-approve" onclick="approveSubmission(2, this)">
+                                    <span>✓</span>
+                                    <span>Approve</span>
+                                </button>
+                                <button class="btn btn-reject" onclick="rejectSubmission(2, this)">
+                                    <span>✗</span>
+                                    <span>Reject</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-card" data-status="pending">
+                        <div class="submission-header">
+                            <div class="submission-info">
+                                <h4 class="submission-title">Night Photography Project</h4>
+                                <div class="submission-meta">
+                                    <span class="submission-author">@nightcaptures</span>
+                                    <span class="submission-date">• 1 day ago</span>
+                                    <span class="badge badge-category">photography</span>
+                                    <span class="badge badge-status-pending">pending</span>
+                                </div>
+                                <p class="submission-description">
+                                    Exploring the city after dark through long exposure photography. 
+                                    This series captures the contrast between the bustling nightlife and 
+                                    quiet moments of solitude in urban spaces.
+                                </p>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="btn btn-approve" onclick="approveSubmission(3, this)">
+                                    <span>✓</span>
+                                    <span>Approve</span>
+                                </button>
+                                <button class="btn btn-reject" onclick="rejectSubmission(3, this)">
+                                    <span>✗</span>
+                                    <span>Reject</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-card" data-status="approved">
+                        <div class="submission-header">
+                            <div class="submission-info">
+                                <h4 class="submission-title">Digital Collage Experiments</h4>
+                                <div class="submission-meta">
+                                    <span class="submission-author">@mixedmedia_artist</span>
+                                    <span class="submission-date">• 2 days ago</span>
+                                    <span class="badge badge-category">mixed</span>
+                                    <span class="badge badge-status-approved">approved</span>
+                                </div>
+                                <p class="submission-description">
+                                    Combining traditional photography with digital manipulation to create 
+                                    surreal landscapes. This piece explores themes of memory and place 
+                                    through layered imagery and texture.
+                                </p>
+                                <div class="approval-notice">
+                                    ✓ Approved by Editorial Team on January 2, 2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-card" data-status="approved">
+                        <div class="submission-header">
+                            <div class="submission-info">
+                                <h4 class="submission-title">Street Style Documentation</h4>
+                                <div class="submission-meta">
+                                    <span class="submission-author">@streetfashion_ph</span>
+                                    <span class="submission-date">• 3 days ago</span>
+                                    <span class="badge badge-category">fashion</span>
+                                    <span class="badge badge-status-approved">approved</span>
+                                </div>
+                                <p class="submission-description">
+                                    Documenting personal style on city streets. These candid portraits 
+                                    capture how people express their identity through fashion choices, 
+                                    celebrating diversity and creativity in everyday dress.
+                                </p>
+                                <div class="approval-notice">
+                                    ✓ Approved by Editorial Team on January 1, 2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="success-toast">
+        <span id="toastMessage">Submission approved successfully!</span>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+
+        function filterSubmissions(status) {
+            currentFilter = status;
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter submissions
+            const submissions = document.querySelectorAll('.submission-card');
+            submissions.forEach(card => {
+                const cardStatus = card.getAttribute('data-status');
+                if (status === 'all' || cardStatus === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update stats display based on visible cards
+            updateStatsDisplay();
+        }
+
+        function updateStatsDisplay() {
+            const visibleCards = document.querySelectorAll('.submission-card[style="display: block"], .submission-card:not([style])');
+            const pending = Array.from(visibleCards).filter(card => card.getAttribute('data-status') === 'pending').length;
+            const approved = Array.from(visibleCards).filter(card => card.getAttribute('data-status') === 'approved').length;
+            
+            if (currentFilter !== 'all') {
+                // Show filtered counts
+                document.getElementById('pendingCount').textContent = currentFilter === 'pending' ? pending : '—';
+                document.getElementById('approvedCount').textContent = currentFilter === 'approved' ? approved : '—';
+            } else {
+                // Show all counts
+                const allCards = document.querySelectorAll('.submission-card');
+                const totalPending = Array.from(allCards).filter(card => card.getAttribute('data-status') === 'pending').length;
+                const totalApproved = Array.from(allCards).filter(card => card.getAttribute('data-status') === 'approved').length;
+                
+                document.getElementById('pendingCount').textContent = totalPending;
+                document.getElementById('approvedCount').textContent = totalApproved;
+            }
+        }
+
+        function approveSubmission(id, buttonElement) {
+            const reviewerName = document.getElementById('reviewerName').value;
+            if (!reviewerName.trim()) {
+                alert('Please enter your name as reviewer');
+                return;
+            }
+
+            const card = buttonElement.closest('.submission-card');
+            const actionsDiv = buttonElement.closest('.submission-actions');
+            
+            // Disable buttons
+            const approveBtn = actionsDiv.querySelector('.btn-approve');
+            const rejectBtn = actionsDiv.querySelector('.btn-reject');
+            
+            approveBtn.disabled = true;
+            rejectBtn.disabled = true;
+            approveBtn.innerHTML = '<span>⏳</span><span>Approving...</span>';
+
+            // Simulate API call
+            setTimeout(() => {
+                // Update card status
+                card.setAttribute('data-status', 'approved');
+                
+                // Update badge
+                const statusBadge = card.querySelector('.badge-status-pending');
+                if (statusBadge) {
+                    statusBadge.className = 'badge badge-status-approved';
+                    statusBadge.textContent = 'approved';
+                }
+                
+                // Replace action buttons with approval notice
+                const infoDiv = card.querySelector('.submission-info');
+                const approvalNotice = document.createElement('div');
+                approvalNotice.className = 'approval-notice';
+                approvalNotice.innerHTML = `✓ Approved by ${reviewerName} on ${new Date().toLocaleDateString()}`;
+                infoDiv.appendChild(approvalNotice);
+                
+                // Remove action buttons
+                actionsDiv.remove();
+                
+                // Show success toast
+                showToast('Submission approved and published live!');
+                
+                // Update stats
+                updateStatsDisplay();
+                
+                // Filter display if needed
+                if (currentFilter === 'pending') {
+                    card.style.display = 'none';
+                }
+            }, 2000);
+        }
+
+        function rejectSubmission(id, buttonElement) {
+            if (!confirm('Are you sure you want to reject this submission?')) {
+                return;
+            }
+
+            const reviewerName = document.getElementById('reviewerName').value;
+            const notes = prompt('Optional: Add a note for the submitter:') || '';
+
+            const card = buttonElement.closest('.submission-card');
+            const actionsDiv = buttonElement.closest('.submission-actions');
+            
+            // Disable buttons
+            const approveBtn = actionsDiv.querySelector('.btn-approve');
+            const rejectBtn = actionsDiv.querySelector('.btn-reject');
+            
+            approveBtn.disabled = true;
+            rejectBtn.disabled = true;
+            rejectBtn.innerHTML = '<span>⏳</span><span>Rejecting...</span>';
+
+            // Simulate API call
+            setTimeout(() => {
+                // Update card status
+                card.setAttribute('data-status', 'rejected');
+                
+                // Update badge
+                const statusBadge = card.querySelector('.badge-status-pending');
+                if (statusBadge) {
+                    statusBadge.className = 'badge badge-status-rejected';
+                    statusBadge.textContent = 'rejected';
+                }
+                
+                // Replace action buttons with rejection notice
+                const infoDiv = card.querySelector('.submission-info');
+                const rejectionNotice = document.createElement('div');
+                rejectionNotice.className = 'approval-notice';
+                rejectionNotice.style.background = 'rgba(239, 68, 68, 0.1)';
+                rejectionNotice.style.borderColor = 'var(--danger)';
+                rejectionNotice.style.color = 'var(--danger)';
+                rejectionNotice.innerHTML = `✗ Rejected by ${reviewerName} on ${new Date().toLocaleDateString()}`;
+                if (notes) {
+                    rejectionNotice.innerHTML += `<br><small>Note: ${notes}</small>`;
+                }
+                infoDiv.appendChild(rejectionNotice);
+                
+                // Remove action buttons
+                actionsDiv.remove();
+                
+                // Show success toast
+                showToast('Submission rejected');
+                
+                // Update stats
+                updateStatsDisplay();
+                
+                // Filter display if needed
+                if (currentFilter === 'pending') {
+                    card.style.display = 'none';
+                }
+            }, 1500);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('successToast');
+            const messageSpan = document.getElementById('toastMessage');
+            
+            messageSpan.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatsDisplay();
+        });
+    </script>
+</body>
+</html>

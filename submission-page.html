@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Work - Enamorado Community Archive | Independent Culture Magazine</title>
+    <meta name="description" content="Submit your art, fashion, photography, or creative work to Enamorado's quarterly community archive. Join our growing community of independent creators.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Submit to Enamorado Community Archive">
+    <meta property="og:description" content="Share your creative work with our independent culture magazine. Submit art, fashion, photography, and more.">
+    <meta property="og:type" content="website">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: hsl(222, 84%, 5%);
+            --charcoal: hsl(215, 25%, 13%);
+            --slate: hsl(215, 16%, 20%);
+            --light-grey: hsl(215, 15%, 30%);
+            --editorial: hsl(207, 90%, 54%);
+            --foreground: hsl(210, 20%, 85%);
+            --muted-foreground: hsl(215, 20%, 75%);
+            --border: hsl(215, 32%, 27%);
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--navy), var(--charcoal), var(--slate));
+            color: var(--foreground);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            text-decoration: none;
+        }
+
+        .nav-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: -0.25rem;
+        }
+
+        .nav-logo p {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 5rem 2rem 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .how-it-works h2 {
+            font-size: 1.75rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .how-it-works p {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 3rem;
+            height: 3rem;
+            background: var(--editorial);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 0 auto 0.75rem auto;
+        }
+
+        .process-step h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            gap: 0.5rem;
+        }
+
+        .category-tab {
+            background: transparent;
+            border: none;
+            color: var(--muted-foreground);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .category-tab.active {
+            background: var(--editorial);
+            color: white;
+        }
+
+        .category-tab:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--editorial);
+        }
+
+        .category-tab.active:hover {
+            background: var(--editorial);
+            color: white;
+        }
+
+        /* Submission Form */
+        .submission-container {
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .category-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .category-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-header {
+            margin-bottom: 2rem;
+        }
+
+        .category-header h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-header p {
+            color: var(--muted-foreground);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--navy);
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--editorial);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Upload Section */
+        .upload-section {
+            border: 2px dashed var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .upload-section h3 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-section p {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .upload-button {
+            background: var(--editorial);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+
+        .upload-button:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--editorial);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--muted-foreground);
+            border: 2px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .submit-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .submit-section .btn {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .submit-section {
+                flex-direction: column;
+            }
+        }
+
+        /* Start Button */
+        .start-submission {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .start-btn {
+            background: var(--editorial);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--charcoal), var(--slate));
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-header p {
+            color: var(--muted-foreground);
+            margin-top: 0.25rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: auto;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            color: var(--success);
+            text-align: center;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <h1>Enamorado</h1>
+                <p>Independent Culture</p>
+            </a>
+            
+            <a href="/" class="back-btn">
+                <span>←</span>
+                <span>Back to Magazine</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1>Editorial Open Call</h1>
+                <p class="subtitle">Submit to Enamorado Community Archive Vol. 1</p>
+            </div>
+
+            <!-- How It Works -->
+            <div class="how-it-works">
+                <h2>How It Works</h2>
+                <p>
+                    Every quarter, we collect submissions from our community to create a collaborative 
+                    zine/archive. Your work becomes part of a living collection showcasing local artists, 
+                    style, and creative voices. With your approval, your submission joins others in 
+                    "Enamorado Radio Community Submissions Vol. 1" — a collective showcase of our 
+                    community's creativity.
+                </p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Submit Your Work</h4>
+                        <p>Upload sketches, paintings, fashion looks, or creative projects</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Editorial Review</h4>
+                        <p>Our team reviews submissions for the quarterly archive</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Community Archive</h4>
+                        <p>Approved works are featured in our collective zine</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Living Collection</h4>
+                        <p>Your work becomes part of our ongoing community showcase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Submission Button -->
+            <div class="start-submission">
+                <button class="start-btn" onclick="openSubmissionForm()">
+                    Start Your Submission
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Submission Form Modal -->
+    <div id="submissionModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3>Submit to Community Archive</h3>
+                    <p>Share your work with our editorial team for potential publication</p>
+                </div>
+                <button class="close-btn" onclick="closeSubmissionForm()">&times;</button>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <strong>✓ Submission Successful!</strong><br>
+                Your work has been submitted for editorial review. We'll be in touch soon!
+            </div>
+
+            <!-- Category Navigation -->
+            <div style="padding: 0 2rem;">
+                <div class="category-nav">
+                    <button class="category-tab active" onclick="showCategory('art')">
+                        Art & Sketches
+                    </button>
+                    <button class="category-tab" onclick="showCategory('fashion')">
+                        Fashion
+                    </button>
+                    <button class="category-tab" onclick="showCategory('photography')">
+                        Photography
+                    </button>
+                    <button class="category-tab" onclick="showCategory('mixed')">
+                        Mixed Media
+                    </button>
+                </div>
+            </div>
+
+            <!-- Art & Sketches Form -->
+            <div id="art" class="category-content active">
+                <div class="category-header">
+                    <h3>Art & Sketches</h3>
+                    <p>Share your visual art - from quick sketches to finished paintings</p>
+                </div>
+                
+                <form class="submission-form" data-category="art">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="art-handle">Your Handle/Name *</label>
+                            <input type="text" id="art-handle" name="submitterHandle" required 
+                                   placeholder="e.g., @artlover22 or Sam Chen">
+                        </div>
+                        <div class="form-group">
+                            <label for="art-email">Email (optional)</label>
+                            <input type="email" id="art-email" name="submitterEmail" 
+                                   placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="art-title">Title of Your Work *</label>
+                        <input type="text" id="art-title" name="title" required 
+                               placeholder="What do you call this piece?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="art-description">Tell us about this work *</label>
+                        <textarea id="art-description" name="description" rows="4" required 
+                                  placeholder="What inspired this? What's the story behind it?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="art-social">Instagram/Social Handle (optional)</label>
+                        <input type="text" id="art-social" name="socialHandle" 
+                               placeholder="@yourusername">
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-icon">+</div>
+                        <h3>Upload Your Art</h3>
+                        <p>JPG, PNG, PDF up to 25MB</p>
+                        <button type="button" class="upload-button" disabled>
+                            Choose Files (Coming Soon)
+                        </button>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button type="button" class="btn btn-outline" onclick="closeSubmissionForm()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Submit to Archive
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Fashion Form -->
+            <div id="fashion" class="category-content">
+                <div class="category-header">
+                    <h3>Fashion</h3>
+                    <p>Show off your style - outfit photos, styling tips, fashion finds</p>
+                </div>
+                
+                <form class="submission-form" data-category="fashion">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fashion-handle">Your Handle/Name *</label>
+                            <input type="text" id="fashion-handle" name="submitterHandle" required 
+                                   placeholder="e.g., @styleicon or Jordan">
+                        </div>
+                        <div class="form-group">
+                            <label for="fashion-email">Email (optional)</label>
+                            <input type="email" id="fashion-email" name="submitterEmail" 
+                                   placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fashion-title">Look Title *</label>
+                        <input type="text" id="fashion-title" name="title" required 
+                               placeholder="e.g., 'Thrift Store Finds' or 'Night Out Look'">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fashion-description">Describe your style *</label>
+                        <textarea id="fashion-description" name="description" rows="4" required 
+                                  placeholder="Where did you get these pieces? What's the vibe you're going for?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fashion-social">Instagram/TikTok Handle (optional)</label>
+                        <input type="text" id="fashion-social" name="socialHandle" 
+                               placeholder="@yourusername">
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-icon">+</div>
+                        <h3>Upload Your Look</h3>
+                        <p>JPG, PNG up to 25MB</p>
+                        <button type="button" class="upload-button" disabled>
+                            Choose Photos (Coming Soon)
+                        </button>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button type="button" class="btn btn-outline" onclick="closeSubmissionForm()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Submit to Archive
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Photography Form -->
+            <div id="photography" class="category-content">
+                <div class="category-header">
+                    <h3>Photography</h3>
+                    <p>Capture moments - street photography, portraits, creative shots</p>
+                </div>
+                
+                <form class="submission-form" data-category="photography">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="photo-handle">Your Handle/Name *</label>
+                            <input type="text" id="photo-handle" name="submitterHandle" required 
+                                   placeholder="e.g., @photographer or Alex">
+                        </div>
+                        <div class="form-group">
+                            <label for="photo-email">Email (optional)</label>
+                            <input type="email" id="photo-email" name="submitterEmail" 
+                                   placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="photo-title">Photo Series/Title *</label>
+                        <input type="text" id="photo-title" name="title" required 
+                               placeholder="e.g., 'City Nights' or 'Portrait Series'">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="photo-description">About your photography *</label>
+                        <textarea id="photo-description" name="description" rows="4" required 
+                                  placeholder="What's the story behind these photos? What were you trying to capture?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="photo-social">Instagram/Social Handle (optional)</label>
+                        <input type="text" id="photo-social" name="socialHandle" 
+                               placeholder="@yourusername">
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-icon">+</div>
+                        <h3>Upload Your Photos</h3>
+                        <p>JPG, PNG, RAW up to 25MB each</p>
+                        <button type="button" class="upload-button" disabled>
+                            Choose Photos (Coming Soon)
+                        </button>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button type="button" class="btn btn-outline" onclick="closeSubmissionForm()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Submit to Archive
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Mixed Media Form -->
+            <div id="mixed" class="category-content">
+                <div class="category-header">
+                    <h3>Mixed Media</h3>
+                    <p>Experimental work combining different artistic mediums</p>
+                </div>
+                
+                <form class="submission-form" data-category="mixed">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mixed-handle">Your Handle/Name *</label>
+                            <input type="text" id="mixed-handle" name="submitterHandle" required 
+                                   placeholder="e.g., @mixedartist or Taylor">
+                        </div>
+                        <div class="form-group">
+                            <label for="mixed-email">Email (optional)</label>
+                            <input type="email" id="mixed-email" name="submitterEmail" 
+                                   placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mixed-title">Project Title *</label>
+                        <input type="text" id="mixed-title" name="title" required 
+                               placeholder="What do you call this experimental work?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mixed-description">Describe your project *</label>
+                        <textarea id="mixed-description" name="description" rows="4" required 
+                                  placeholder="What mediums did you combine? What's the concept behind it?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mixed-social">Instagram/Social Handle (optional)</label>
+                        <input type="text" id="mixed-social" name="socialHandle" 
+                               placeholder="@yourusername">
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-icon">+</div>
+                        <h3>Upload Your Mixed Media Work</h3>
+                        <p>JPG, PNG, PDF, MP4 up to 25MB</p>
+                        <button type="button" class="upload-button" disabled>
+                            Choose Files (Coming Soon)
+                        </button>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button type="button" class="btn btn-outline" onclick="closeSubmissionForm()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Submit to Archive
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = 'art';
+
+        function openSubmissionForm() {
+            document.getElementById('submissionModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSubmissionForm() {
+            document.getElementById('submissionModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function showCategory(category) {
+            // Hide all categories
+            document.querySelectorAll('.category-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected category
+            document.getElementById(category).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            currentCategory = category;
+        }
+
+        // Handle form submissions
+        document.querySelectorAll('.submission-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const data = {
+                    category: currentCategory,
+                    submitterHandle: formData.get('submitterHandle'),
+                    submitterEmail: formData.get('submitterEmail') || '',
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    socialHandle: formData.get('socialHandle') || '',
+                    files: [] // File upload to be implemented
+                };
+
+                // Validate required fields
+                if (!data.submitterHandle || !data.title || !data.description) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                // Simulate form submission
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Show success message
+                    document.getElementById('successMessage').classList.add('show');
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeSubmissionForm();
+                    }, 3000);
+                }, 2000);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('submissionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSubmissionForm();
+            }
+        });
+
+        // ESC key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSubmissionForm();
+            }
+        });
+    </script>
+</body>
+</html>

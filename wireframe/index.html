@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enamorado - Digital Magazine Wireframe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Enamorado</h2>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#editorials">Editorials</a>
+                <a href="#community">Community</a>
+                <a href="#radio">Radio</a>
+                <a href="#submit">Submit</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Independent Culture Magazine</h1>
+            <p>Showcasing the voices and creativity of San Antonio</p>
+            <button class="cta-button" onclick="showSubmitForm()">Share Your Work</button>
+        </div>
+    </section>
+
+    <!-- Featured Stories -->
+    <section id="editorials" class="featured-section">
+        <div class="container">
+            <h2>Featured Stories</h2>
+            <div class="stories-grid">
+                <article class="story-card main-story">
+                    <div class="story-image">
+                        <div class="placeholder-image">Main Feature</div>
+                    </div>
+                    <div class="story-content">
+                        <span class="story-category">Music Review</span>
+                        <h3>Reviewing Artist's Latest Album</h3>
+                        <p>An in-depth look at the creative process and cultural impact...</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <div class="sidebar-stories">
+                    <article class="story-card">
+                        <div class="story-content">
+                            <span class="story-category">Cultural Commentary</span>
+                            <h4>On Female Friendships</h4>
+                            <p>A personal essay exploring modern relationships...</p>
+                        </div>
+                    </article>
+                    
+                    <article class="story-card">
+                        <div class="story-content">
+                            <span class="story-category">Film Review</span>
+                            <h4>Cinema and Music Crossover</h4>
+                            <p>How visual art influences musical expression...</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community-section">
+        <div class="container">
+            <h2>Community Submissions</h2>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-type">Poetry</div>
+                    <h4>Untitled Poem</h4>
+                    <p>By @localpoet</p>
+                </div>
+                
+                <div class="submission-card">
+                    <div class="submission-type">Art</div>
+                    <h4>Digital Illustration</h4>
+                    <p>By @artist_sa</p>
+                </div>
+                
+                <div class="submission-card">
+                    <div class="submission-type">Music</div>
+                    <h4>Indie Playlist</h4>
+                    <p>By @musiclover</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Radio Section (Placeholder for Next Phase) -->
+    <section id="radio" class="radio-section">
+        <div class="container">
+            <h2>Enamorado Radio</h2>
+            <div class="radio-placeholder">
+                <div class="radio-player">
+                    <div class="radio-info">
+                        <h3>Live Session</h3>
+                        <p>Community curated playlists and live discussions</p>
+                    </div>
+                    <div class="radio-controls">
+                        <button class="play-button">▶</button>
+                        <div class="volume-control">🔊</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submission Modal -->
+    <div id="submitModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSubmitForm()">&times;</span>
+            <h3>Submit Your Work</h3>
+            <form id="submitForm">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="poetry">Poetry & Writing</option>
+                        <option value="art">Visual Art</option>
+                        <option value="music">Music & Playlists</option>
+                        <option value="photography">Photography</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="substackUrl">Substack URL (Optional)</label>
+                    <input type="url" id="substackUrl" name="substackUrl" placeholder="https://yourname.substack.com/p/your-article">
+                    <small>Link to your Substack article for dynamic content pulling</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="handle">Your Name/Handle</label>
+                    <input type="text" id="handle" name="handle" required>
+                </div>
+                
+                <button type="submit" class="submit-button">Submit for Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
